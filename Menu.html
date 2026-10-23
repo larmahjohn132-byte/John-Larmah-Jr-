@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Roast Toast Coast Cafe — Where flavor meets the shore. Browse our menu of coastal brews, toasty delights, and sunset sips.">
+    <title>Roast Toast Coast Cafe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="content">
+        <div class="header-container">
+            <h1>Welcome to the Roast Toast Coast Cafe!</h1>
+            <p>Where flavor meets the shore!</p>
+        </div>
+
+        <section class="menu-section" aria-labelledby="menu-heading">
+            <!-- Using <button> for semantic correctness and keyboard accessibility -->
+            <button class="menu-toggle" id="menu-heading" aria-expanded="false" aria-controls="menu-list">
+                Our Menu <span class="chevron" aria-hidden="true">▾</span>
+            </button>
+            <ul class="menu-items" id="menu-list" aria-label="Cafe menu items">
+                <li><span class="item-name">Breezy Brews</span><span class="item-price">$4.50</span></li>
+                <li><span class="item-name">Toasty Delights</span><span class="item-price">$6.00</span></li>
+                <li><span class="item-name">Coastal Bites</span><span class="item-price">$8.75</span></li>
+                <li><span class="item-name">Sunset Sips</span><span class="item-price">$5.25</span></li>
+            </ul>
+        </section>
+
+        <footer class="cafe-footer">
+            <h3>Visit Us</h3>
+            <p>123 Shoreline Drive, Coastal Town</p>
+            <p>
+                <span class="hours-label">Mon – Fri</span> 7:00 AM – 8:00 PM &nbsp;|&nbsp;
+                <span class="hours-label">Sat – Sun</span> 8:00 AM – 9:00 PM
+            </p>
+        </footer>
+    </div>
+
+    <div class="image-container" role="img" aria-label="A warm cup of coffee on a coastal cafe table"></div>
+
+    <script src="script.js" defer></script>
+</body>
+</html>

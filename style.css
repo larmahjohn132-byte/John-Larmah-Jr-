@@ -1,0 +1,254 @@
+/* ============================================================
+   Roast Toast Coast Cafe — Main Stylesheet
+   File: style.css
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   CSS Custom Properties (Design Tokens)
+   Centralised colour palette — change once, updates everywhere.
+   ------------------------------------------------------------ */
+:root {
+    --color-bg:           #000000;
+    --color-surface:      #111111;
+    --color-surface-item: #222222;
+    --color-accent:       #FFCC00;
+    --color-accent-hover: #FF9933;
+    --color-text:         #F7F7F7;
+    --color-text-muted:   #AAAAAA;
+    --color-glass-bg:     rgba(255, 255, 255, 0.1);
+    --color-glass-border: rgba(255, 255, 255, 0.3);
+
+    --radius-card:   15px;
+    --radius-item:   5px;
+    --transition:    0.2s ease;
+}
+
+/* ------------------------------------------------------------
+   Base / Reset
+   ------------------------------------------------------------ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--color-bg);
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+}
+
+/* ------------------------------------------------------------
+   Responsive — stack columns on small screens
+   ------------------------------------------------------------ */
+@media (max-width: 768px) {
+    body {
+        grid-template-columns: 1fr;
+    }
+
+    .image-container {
+        height: 300px;
+        order: -1; /* Hero image appears above content on mobile */
+    }
+
+    .header-container h1 {
+        font-size: 2em;
+    }
+}
+
+/* ------------------------------------------------------------
+   Layout: Content Column
+   ------------------------------------------------------------ */
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    gap: 24px; /* consistent spacing between stacked sections */
+}
+
+/* ------------------------------------------------------------
+   Layout: Image Column
+   ------------------------------------------------------------ */
+.image-container {
+    background-image: url('https://images.unsplash.com/photo-1514066558159-fc8c737ef259?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    min-height: 400px;
+}
+
+/* ------------------------------------------------------------
+   Header Card (glassmorphism panel)
+   ------------------------------------------------------------ */
+.header-container {
+    background-color: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-card);
+    padding: 30px 20px;
+    width: 90%;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.header-container h1 {
+    color: var(--color-accent);
+    font-size: 3em;
+    font-weight: 700;
+    margin: 0 0 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    line-height: 1.2;
+    word-break: break-word;
+    max-width: 100%;
+}
+
+.header-container p {
+    font-size: 1.3em;
+    color: var(--color-text);
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    font-weight: 300;
+}
+
+/* ------------------------------------------------------------
+   Menu Section Card
+   ------------------------------------------------------------ */
+.menu-section {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    padding: 20px;
+    width: 90%;
+    max-width: 420px;
+    border-radius: var(--radius-card);
+    box-shadow: 0px 4px 10px rgba(189, 180, 180, 0.2);
+    text-align: center;
+}
+
+/* ------------------------------------------------------------
+   Menu Toggle Button
+   Replaces the old <h2> — semantically a <button> for
+   keyboard/screen-reader accessibility.
+   ------------------------------------------------------------ */
+.menu-toggle {
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.8em;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: color var(--transition);
+}
+
+.menu-toggle:hover,
+.menu-toggle:focus-visible {
+    color: var(--color-accent-hover);
+    outline: 2px solid var(--color-accent-hover);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Chevron indicator — rotates when menu is open */
+.chevron {
+    display: inline-block;
+    font-size: 0.8em;
+    transition: transform var(--transition);
+}
+
+.menu-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(180deg);
+}
+
+.menu-toggle[aria-expanded="true"] {
+    color: var(--color-accent-hover);
+}
+
+/* ------------------------------------------------------------
+   Menu Items List
+   Animated expand using max-height trick
+   ------------------------------------------------------------ */
+.menu-items {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.35s ease;
+}
+
+.menu-items.is-open {
+    max-height: 500px; /* large enough to fit all items */
+}
+
+.menu-items li {
+    background-color: var(--color-surface-item);
+    color: var(--color-text);
+    padding: 12px 16px;
+    border-radius: var(--radius-item);
+    margin: 8px 0;
+    font-size: 1.05em;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform var(--transition), background-color var(--transition);
+}
+
+.menu-items li:hover {
+    transform: translateY(-2px);          /* subtle lift on hover */
+    background-color: #2e2e2e;
+}
+
+/* Item name & price layout */
+.item-name {
+    font-weight: 400;
+}
+
+.item-price {
+    font-weight: 700;
+    color: var(--color-accent);
+    font-size: 0.95em;
+    white-space: nowrap;
+}
+
+/* ------------------------------------------------------------
+   Footer — Hours & Location
+   ------------------------------------------------------------ */
+.cafe-footer {
+    background-color: var(--color-glass-bg);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-card);
+    padding: 20px;
+    width: 90%;
+    text-align: center;
+    color: var(--color-text);
+}
+
+.cafe-footer h3 {
+    color: var(--color-accent);
+    font-size: 1.3em;
+    margin: 0 0 10px;
+    font-weight: 700;
+}
+
+.cafe-footer p {
+    margin: 6px 0;
+    font-size: 0.95em;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+}
+
+.hours-label {
+    color: var(--color-accent);
+    font-weight: 700;
+}
